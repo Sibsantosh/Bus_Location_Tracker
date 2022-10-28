@@ -25,13 +25,16 @@ class ActivityLogin : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //setContentView(R.layout.activity_login)
         binding=DataBindingUtil.setContentView(this,R.layout.activity_login)
-        binding.apply {
-            email=etEmail.text.toString().trim()
-            password=etPassword.text.toString().trim()
-        }
+
+
         binding.btnLogin.setOnClickListener {
-            if(email.isEmpty()||password.isEmpty())
+            binding.apply {
+                email=etEmail.text.toString().trim()
+                password=etPassword.text.toString().trim()
+            }
+            if(email==""||password=="")
             {
                 Toast.makeText(this,"Enter credentials",Toast.LENGTH_SHORT).show()
             }
