@@ -1,20 +1,14 @@
 package com.rexmo.buslocationtracker
 
 import android.Manifest
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
-import android.provider.Settings
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
-import com.rexmo.buslocationtracker.maps.MapsActivity
 import com.rexmo.buslocationtracker.permissions.LocationRequestPermissions
 
 class MainActivity : AppCompatActivity() {
