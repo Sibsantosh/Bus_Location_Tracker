@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Login.ActivityRegister"
+        android:background="#FFE3E3">
+        <LinearLayout
+            android:id="@+id/headLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/drawable_gradient"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/giet_logo" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <!-- <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter email"
+                    android:layout_marginTop="50dp"
+                    android:text="c"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="30dp"
+                    />
+                <TextView
+                    android:textSize="18sp"
+                    android:layout_marginTop="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" @giet.edu"/>  -->
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter email"
+                    android:layout_marginTop="50dp"
+                    android:text="a@gmail.com"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="30dp"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
+            <EditText
+                android:id="@+id/et_driver_number"
+                android:text="12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Driver No"
+                android:layout_marginTop="50dp"
+                android:textSize="18sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                />
+
+            <EditText
+                android:id="@+id/et_busNO"
+                android:text="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter bus no"
+                android:layout_marginTop="50dp"
+                android:textSize="18sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Name"
+                android:text="sib"
+                android:layout_marginTop="50dp"
+                android:textSize="18sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                />
+
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="Enter password"
+                android:textSize="18sp"
+                android:text="123456"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"/>
+            <EditText
+                android:id="@+id/etPasswordConfirm"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm password"
+                android:text="123456"
+                android:inputType="textPassword"
+                android:textSize="18sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"/>
+
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_marginTop="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:textColor="#000000"
+                android:backgroundTint="#FFEB3B"
+                android:layout_gravity="center"/>
+            <!--
+                <TextView
+                    android:id="@+id/txtResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:text="Result"
+                    android:textSize="20sp" />
+
+
+                <TextView
+                    android:id="@+id/txtShowLoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_above="@+id/txtResult"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="300dp"
+                    android:text="Hello World!"
+                    android:textSize="20sp"
+                    android:textStyle="bold|italic" />
+                <TextView
+                    android:id="@+id/txtShowcomp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location compare"
+                    android:layout_below="@+id/btnQR"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="60dp"/>
+                    -->
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Already have account"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/txtLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="login"
+
+                    android:textSize="18sp"
+                    android:textColor="#3F51B5"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

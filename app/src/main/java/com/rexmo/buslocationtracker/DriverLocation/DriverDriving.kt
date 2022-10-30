@@ -1,5 +1,4 @@
-package com.rexmo.buslocationtracker.maps
-
+package com.rexmo.buslocationtracker.DriverLocation
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -9,84 +8,49 @@ import android.os.Bundle
 import android.os.Looper
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationResult
-
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.rexmo.buslocationtracker.MainActivity
+import androidx.databinding.DataBindingUtil
+import com.google.android.gms.location.*
+import com.google.firebase.auth.FirebaseAuth
 import com.rexmo.buslocationtracker.R
+import com.rexmo.buslocationtracker.databinding.ActivityDriverDrivingBinding
+import com.rexmo.buslocationtracker.databinding.ActivityMainBinding
 import com.rexmo.buslocationtracker.permissions.LocationRequestPermissions
+import com.skydoves.elasticviews.elasticAnimation
+import firestore.FirestoreAttendance
+import models.DrivingData
 
-internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-
-    private lateinit var mMap: GoogleMap
-
-
-
-    
+class DriverDriving : AppCompatActivity() {
+    val driving=false
+    lateinit var locationRequest: LocationRequest
+    lateinit var deviceLocation: Location
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-
-
-
-
+    lateinit var binding: ActivityDriverDrivingBinding
+    val userPermission=LocationRequestPermissions()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_maps)
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-        //getCurrentLocation()
+        binding=DataBindingUtil.
+        setContentView(this,R.layout.activity_driver_driving)
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        binding.btnStartDriving.setOnClickListener {
+            if (driving==true){
+                //finish()
+                binding.btnStartDriving.text="Start Driving"
+                binding.txtShowLocation.text="Destination Reached"
+            }
+            else{
+                getCurrentLocation()
+              /*  val drivingData=DrivingData()
+                userAttendance.id= FirebaseAuth.getInstance().uid.toString()
+
+
+                val fireStoreAttendance= FirestoreAttendance()
+                fireStoreAttendance.putAttendance(this,userAttendance)*/
+                binding.btnStartDriving.text="Stop Driving"
+            }
+
+        }
     }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-   override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(0.001,0.001)
-        mMap.addMarker(MarkerOptions()
-            .position(sydney)
-            .title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -98,8 +62,7 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun getCurrentLocation() {
-        val userPermission=LocationRequestPermissions()
-        val locationRequest=userPermission.locationRequest
+        locationRequest=userPermission.locationRequest
 
         if (userPermission.checkPermissions(this))
         {
@@ -119,8 +82,8 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                 override fun onLocationResult(locationResult: LocationResult) {
                                     super.onLocationResult(locationResult)
                                     for (location in locationResult.locations) {
-
-                                        //deviceLocation=location
+                                        deviceLocation=location
+                                        binding.txtShowLocation.text=deviceLocation.toString()
 
 
 
@@ -136,7 +99,7 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                         //else {
                         ///open settings since location is not enabled
-                        Toast.makeText(this, "Can't fetch location", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "$e", Toast.LENGTH_SHORT).show()
 
 
 
@@ -150,7 +113,7 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             }
             else{
-                Toast.makeText(this,"Turn on location", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Turn on location",Toast.LENGTH_SHORT).show()
                 userPermission.enableLocation(this)
             }
 

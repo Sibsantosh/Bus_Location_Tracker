@@ -12,42 +12,43 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.rexmo.buslocationtracker.DriverLocation.DriverDriving
 import com.rexmo.buslocationtracker.R
 import com.rexmo.buslocationtracker.databinding.ActivityLoginBinding
 
 class ActivityLogin : AppCompatActivity() {
-    private lateinit var binding:ActivityLoginBinding
-    private lateinit var email:String
-    private lateinit var fEmail:String
-    private lateinit var password:String
+    private lateinit var binding: ActivityLoginBinding
+    private lateinit var email: String
+    private lateinit var fEmail: String
+    private lateinit var password: String
     private lateinit var mProgressBar: Dialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_login)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_login)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
 
         binding.btnLogin.setOnClickListener {
-            binding.apply {
-                email=etEmail.text.toString().trim()
-                password=etPassword.text.toString().trim()
-            }
-            if(email==""||password=="")
-            {
-                Toast.makeText(this,"Enter credentials",Toast.LENGTH_SHORT).show()
+
+            if(binding.etEmail.text.isEmpty()&&binding.etPassword.text.isEmpty()){
+                Toast.makeText(this,"Enter email and password",Toast.LENGTH_SHORT).show()
             }
             else{
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(fEmail,password)
+                showProgressBar()
+                email=binding.etEmail.text.toString().trim(){it <=' '}
+                password=binding.etPassword.text.toString().trim(){it <=' '}
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
                     .addOnCompleteListener(
                         OnCompleteListener <AuthResult>{
                                 task->
-                           // stopProgress()
+                            stopProgress()
                             if(task.isSuccessful){
                                 //val firebaseUser: FirebaseUser =task.result!!.user!!
                                 Toast.makeText(this,"Registered",Toast.LENGTH_SHORT).show()
-                               
+                                val iLogin= Intent(this, DriverDriving::class.java)
+                                startActivity(iLogin)
                             }
                             else
                             {
@@ -56,9 +57,34 @@ class ActivityLogin : AppCompatActivity() {
                         }
                     )
 
-            }
+        }
+    }
+
+        binding.txtNewRegister.setOnClickListener {
+            val i=Intent(this,RegisterActivity::class.java)
+            startActivity(i)
         }
 
 
+
+
+
+
+
+
+
+
+
+    }
+    fun showProgressBar(){
+        mProgressBar=Dialog(this)
+        mProgressBar.setContentView(R.layout.layout_progress_bar)
+        mProgressBar.setCancelable(false)
+        mProgressBar.setCanceledOnTouchOutside(false)
+        mProgressBar.show()
+    }
+    fun stopProgress()
+    {
+        mProgressBar.dismiss()
     }
 }

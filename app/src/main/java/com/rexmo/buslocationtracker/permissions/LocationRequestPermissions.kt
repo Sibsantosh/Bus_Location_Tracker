@@ -14,9 +14,11 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 
-lateinit var myActivity: Activity
+
 
 class LocationRequestPermissions {
+    lateinit var myActivity: Activity
+
 
 
     var locationRequest: LocationRequest =
@@ -80,11 +82,10 @@ class LocationRequestPermissions {
 
 
 
-/*
 
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-     var deviceLocation:Location?=null
-     fun getCurrentLocation(context: Context): Location? {
+
+/*
+     fun getCurrentLocation(context: Context):Unit {
 
         if (checkPermissions(context)) {
             if (isLocationEnabled(context)) {
@@ -98,7 +99,6 @@ class LocationRequestPermissions {
                     ) != PackageManager.PERMISSION_GRANTED
                 ) {
                     requestPermission(context)
-                    //return
                 } else {
 
                     try {
@@ -110,12 +110,7 @@ class LocationRequestPermissions {
                                     super.onLocationResult(locationResult)
                                     for (location in locationResult.locations) {
                                             deviceLocation=location
-
-                                        // latTextView.text = location.latitude.toString()
-                                        // lngTextView.text = location.longitude.toString()
                                     }
-                                    // Few more things we can do here:
-                                    // For example: Update the location of user on server
                                 }
                             },
                             Looper.myLooper()
@@ -143,7 +138,6 @@ class LocationRequestPermissions {
             requestPermission(context)
 
         }
-         return deviceLocation
-    }
-*/
+    }*/
+
 }
