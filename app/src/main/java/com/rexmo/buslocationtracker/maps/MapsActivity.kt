@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.rexmo.buslocationtracker.R
 import com.rexmo.buslocationtracker.firestore.ReadData
 import com.rexmo.buslocationtracker.permissions.LocationRequestPermissions
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.delay
 
 internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -31,7 +32,7 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     lateinit var location: Location
 
-    
+
     //private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
 
@@ -47,6 +48,7 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         //getCurrentLocation()
         //readFirestoreData()
         //Handler(Looper.getMainLooper()).postDelayed({},3000)
+
         changeLocation()
     }
 
@@ -68,7 +70,7 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .position(gunupur)
             .title("Marker in Gunupur"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gunupur,15f))
-        mMap
+
     }
 
 
@@ -79,29 +81,38 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val dataBase = FirebaseFirestore.getInstance().collection("Bus").document("23")
         dataBase.get().addOnSuccessListener {
             if (it.exists()) {
-                //location.latitude=it.getString("latitude").toString().toDouble()
-                //location.longitude=it.getString("longitude").toString().toDouble()
+               location=it.get("location") as Location
+                Toast.makeText(this,"hiii",Toast.LENGTH_SHORT).show()
 //                s =
 //                    it.getString("busNO") + it.getString("longitude") + it.getString("latitude") + "\n"
                 //binding.txtShowLocation.text = s
-                Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
+              //Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
+
 
             }
         }.addOnFailureListener {
             Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
 
         }
+
     }
 
 
     fun changeLocation(){
 
-            Handler(Looper.getMainLooper()).postDelayed({},2000)
-        val handler=object: Handler(Looper.getMainLooper()){
-            //override
+            //Handler(Looper.getMainLooper()).postDelayed({},2000)
+        val handler=Handler(Looper.getMainLooper())
+        val runnable=object: Runnable {
+
+            override fun run() {
+                readFirestoreData()
+                handler.postDelayed(this,15000)
+            }
+
+
 
         }
-
+    handler.post(runnable)
     }
     }
 

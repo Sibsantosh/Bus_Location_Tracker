@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.ViewDebug.FlagToString
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
@@ -99,6 +100,8 @@ class DriverDriving : AppCompatActivity() {
                                             val sendLoc = DrivingData()
                                             sendLoc.latitude = deviceLocation.latitude.toString()
                                             sendLoc.longitude = deviceLocation.longitude.toString()
+                                            sendLoc.location=location
+
 //                                          val bear=location.bearing
                                             val Floca = FirestoreLocation()
                                             Floca.updateLocation(this, sendLoc)
