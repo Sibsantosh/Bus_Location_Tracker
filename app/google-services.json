@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "414703830011",
+    "project_id": "bus-location-tracker-cd4e7",
+    "storage_bucket": "bus-location-tracker-cd4e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414703830011:android:6a1dc10160b8fb1a99415e",
+        "android_client_info": {
+          "package_name": "com.rexmo.buslocationtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414703830011-pmrhb3cmpu2bt9a8k2i1lr4brbacqlcu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rexmo.buslocationtracker",
+            "certificate_hash": "1636299656fc417a8ffff356d8ffd377d511f69e"
+          }
+        },
+        {
+          "client_id": "414703830011-t9fq1tvb9r3s86cef88afqlkps23kr78.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHP6wDH6zu7qVSEMXbgJkHBUElSGQmerQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414703830011-t9fq1tvb9r3s86cef88afqlkps23kr78.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

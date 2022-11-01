@@ -30,7 +30,10 @@ import kotlinx.coroutines.delay
 internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    lateinit var location: Location
+
+     var latitude:Double=0.0
+     var longitude:Double=0.0
+     var ltLg=LatLng(latitude,longitude)
 
 
     //private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -65,11 +68,12 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val gunupur = LatLng(19.0493674,83.8324191)
+        //val gunupur = LatLng(19.0493674,83.8324191)
+        mMap.clear()
         mMap.addMarker(MarkerOptions()
-            .position(gunupur)
+            .position(ltLg)
             .title("Marker in Gunupur"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gunupur,15f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ltLg,15f))
 
     }
 
@@ -81,8 +85,12 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val dataBase = FirebaseFirestore.getInstance().collection("Bus").document("23")
         dataBase.get().addOnSuccessListener {
             if (it.exists()) {
-               location=it.get("location") as Location
-                Toast.makeText(this,"hiii",Toast.LENGTH_SHORT).show()
+               //location=it.get("location") as Location
+                latitude=it.getString("latitude").toString().toDouble()
+                longitude=it.getString("longitude").toString().toDouble()
+                ltLg=LatLng(latitude,longitude)
+
+                Toast.makeText(this,"$latitude$longitude$ltLg",Toast.LENGTH_SHORT).show()
 //                s =
 //                    it.getString("busNO") + it.getString("longitude") + it.getString("latitude") + "\n"
                 //binding.txtShowLocation.text = s
@@ -106,7 +114,8 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             override fun run() {
                 readFirestoreData()
-                handler.postDelayed(this,15000)
+                handler.postDelayed(this,5000)
+                onMapReady(mMap )
             }
 
 
