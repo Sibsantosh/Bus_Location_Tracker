@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -19,18 +20,19 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.rexmo.buslocationtracker.MainActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import com.rexmo.buslocationtracker.R
+import com.rexmo.buslocationtracker.firestore.ReadData
 import com.rexmo.buslocationtracker.permissions.LocationRequestPermissions
+import kotlinx.coroutines.delay
 
 internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-
-
+    lateinit var location: Location
 
     
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    //private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
 
 
@@ -43,6 +45,9 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         //getCurrentLocation()
+        //readFirestoreData()
+        //Handler(Looper.getMainLooper()).postDelayed({},3000)
+        changeLocation()
     }
 
     /**
@@ -58,108 +63,45 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(0.001,0.001)
+        val gunupur = LatLng(19.0493674,83.8324191)
         mMap.addMarker(MarkerOptions()
-            .position(sydney)
-            .title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+            .position(gunupur)
+            .title("Marker in Gunupur"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gunupur,15f))
+        mMap
     }
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private fun getCurrentLocation() {
-        val userPermission=LocationRequestPermissions()
-        val locationRequest=userPermission.locationRequest
-
-        if (userPermission.checkPermissions(this))
-        {
-            if (userPermission.isLocationEnabled(this)) {
-
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    userPermission.requestPermission(this)
-                    //return
-                }
-                else {
-
-                    try {
-
-                        fusedLocationProviderClient.requestLocationUpdates(
-                            locationRequest,
-                            object : LocationCallback() {
-                                override fun onLocationResult(locationResult: LocationResult) {
-                                    super.onLocationResult(locationResult)
-                                    for (location in locationResult.locations) {
-
-                                        //deviceLocation=location
-
-
-
-                                    }
-                                    // Few more things we can do here:
-                                    // For example: Update the location of user on server
-                                }
-                            },
-                            Looper.myLooper()
-                        )
-                    }
-                    catch (e: Exception) {
-
-                        //else {
-                        ///open settings since location is not enabled
-                        Toast.makeText(this, "Can't fetch location", Toast.LENGTH_SHORT).show()
-
-
-
-                        //onRestart()
-
-                        // }
-                    }
-                }
-
-
+    fun readFirestoreData() {
+        val dataBase = FirebaseFirestore.getInstance().collection("Bus").document("23")
+        dataBase.get().addOnSuccessListener {
+            if (it.exists()) {
+                //location.latitude=it.getString("latitude").toString().toDouble()
+                //location.longitude=it.getString("longitude").toString().toDouble()
+//                s =
+//                    it.getString("busNO") + it.getString("longitude") + it.getString("latitude") + "\n"
+                //binding.txtShowLocation.text = s
+                Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
 
             }
-            else{
-                Toast.makeText(this,"Turn on location", Toast.LENGTH_SHORT).show()
-                userPermission.enableLocation(this)
-            }
+        }.addOnFailureListener {
+            Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
 
         }
-        else {
-            //request permission
-            userPermission.requestPermission(this)
+    }
+
+
+    fun changeLocation(){
+
+            Handler(Looper.getMainLooper()).postDelayed({},2000)
+        val handler=object: Handler(Looper.getMainLooper()){
+            //override
 
         }
 
     }
-}
+    }
+

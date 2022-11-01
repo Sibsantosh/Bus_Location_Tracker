@@ -1,23 +1,22 @@
 package firestore
 
-import android.widget.Toast
+import com.google.android.gms.location.LocationCallback
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.rexmo.buslocationtracker.DriverLocation.DriverDriving
 import models.DrivingData
 
 
-class FirestoreAttendance {
+class FirestoreLocation {
    private val mFirestore= FirebaseFirestore.getInstance()
 
-    fun putAttendance(activity: DriverDriving, userInfo: DrivingData){
+    fun updateLocation(activity: LocationCallback, busLocation: DrivingData){
 
         //the user is a collection if it dont exist then it will create one
         mFirestore.collection("Bus")
             //the document id for user and here the document is userid
-            .document(userInfo.busNO)
+            .document(busLocation.busNO)
             //here the user info is fields to be pushed
-            .set(userInfo, SetOptions.merge())
+            .set(busLocation, SetOptions.merge())
             .addOnSuccessListener {
                 /*activity.success="Attendance Updated"
                 activity.attendanceUpdated()*/

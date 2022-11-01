@@ -1,7 +1,7 @@
 package models
 
 class DrivingData {
-    var busNO=""
+    var busNO="23"
     var DriverName=""
     var NumberPlate=""
     var email=""

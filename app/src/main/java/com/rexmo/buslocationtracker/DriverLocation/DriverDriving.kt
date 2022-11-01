@@ -5,22 +5,20 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.location.*
-import com.google.firebase.auth.FirebaseAuth
 import com.rexmo.buslocationtracker.R
 import com.rexmo.buslocationtracker.databinding.ActivityDriverDrivingBinding
-import com.rexmo.buslocationtracker.databinding.ActivityMainBinding
 import com.rexmo.buslocationtracker.permissions.LocationRequestPermissions
-import com.skydoves.elasticviews.elasticAnimation
-import firestore.FirestoreAttendance
+import firestore.FirestoreLocation
 import models.DrivingData
 
 class DriverDriving : AppCompatActivity() {
-    val driving=false
+    var driving=false
     lateinit var locationRequest: LocationRequest
     lateinit var deviceLocation: Location
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -33,25 +31,38 @@ class DriverDriving : AppCompatActivity() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         binding.btnStartDriving.setOnClickListener {
-            if (driving==true){
+            Toast.makeText(this,"$driving",Toast.LENGTH_SHORT).show()
+            if (driving){
                 //finish()
                 binding.btnStartDriving.text="Start Driving"
                 binding.txtShowLocation.text="Destination Reached"
+                driving=false
+
             }
             else{
                 getCurrentLocation()
-              /*  val drivingData=DrivingData()
-                userAttendance.id= FirebaseAuth.getInstance().uid.toString()
-
-
-                val fireStoreAttendance= FirestoreAttendance()
-                fireStoreAttendance.putAttendance(this,userAttendance)*/
                 binding.btnStartDriving.text="Stop Driving"
+                driving=true
+
             }
 
         }
     }
 
+    /*val mHandler=Handler(Looper.getMainLooper())
+    fun startRun(){
+        //mHandler.postDelayed(mRunnable,200)
+        mRunnable.run()
+    }
+    fun stopRun(){
+        mHandler.removeCallbacks(mRunnable)
+    }
+    val mRunnable=Runnable(){
+        fun run(){
+        Toast.makeText(this,"Hii",Toast.LENGTH_SHORT).show()
+            mHandler.postDelayed(startRun(),5000)
+        }
+    }*/
 
 
 
@@ -83,11 +94,27 @@ class DriverDriving : AppCompatActivity() {
                                     super.onLocationResult(locationResult)
                                     for (location in locationResult.locations) {
                                         deviceLocation=location
-                                        binding.txtShowLocation.text=deviceLocation.toString()
-
+                                        if(driving) {
+                                            binding.txtShowLocation.text = deviceLocation.toString()
+                                            val sendLoc = DrivingData()
+                                            sendLoc.latitude = deviceLocation.latitude.toString()
+                                            sendLoc.longitude = deviceLocation.longitude.toString()
+//                                          val bear=location.bearing
+                                            val Floca = FirestoreLocation()
+                                            Floca.updateLocation(this, sendLoc)
+                                        }
+                                        else{
+                                            return
+                                            /*    val sendLoc = DrivingData()
+                                            sendLoc.latitude = ""
+                                            sendLoc.longitude = ""
+                                            val Floca = FirestoreLocation()
+                                            Floca.updateLocation(this, sendLoc)*/
+                                        }
 
 
                                     }
+
                                     // Few more things we can do here:
                                     // For example: Update the location of user on server
                                 }
@@ -125,4 +152,6 @@ class DriverDriving : AppCompatActivity() {
         }
 
     }
+
+
 }

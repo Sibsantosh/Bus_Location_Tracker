@@ -54,5 +54,7 @@
         android:minHeight="45dp"
         android:text="Location will be showed here"/>
 
+
+
 </LinearLayout>
     </layout>
