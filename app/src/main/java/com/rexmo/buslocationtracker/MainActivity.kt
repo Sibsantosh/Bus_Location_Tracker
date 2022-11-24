@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rexmo.buslocationtracker.Login.ActivityLogin
 import com.rexmo.buslocationtracker.databinding.ActivityMainBinding
+import com.rexmo.buslocationtracker.maps.ActivityBusNumber
 import com.rexmo.buslocationtracker.maps.MapsActivity
 
 open class MainActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ open class MainActivity : AppCompatActivity() {
             startActivity(i)
         }
         binding.imgViewLocation.setOnClickListener {
-            val i = Intent(this, MapsActivity::class.java)
+            val i=Intent(this,ActivityBusNumber::class.java)
             startActivity(i)
         }
 

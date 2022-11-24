@@ -5,4 +5,5 @@
     <string name="hybrid_map">Hybrid map</string>
     <string name="satellite_map">Satellite map</string>
     <string name="terrain_map">Terrarian map</string>
+    <string name="title_activity_bus_live_location">BusLiveLocation</string>
 </resources>

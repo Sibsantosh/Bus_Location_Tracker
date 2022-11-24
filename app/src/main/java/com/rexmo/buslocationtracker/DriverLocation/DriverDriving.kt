@@ -32,7 +32,7 @@ class DriverDriving : AppCompatActivity() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         binding.btnStartDriving.setOnClickListener {
-            Toast.makeText(this,"$driving",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this,"$driving",Toast.LENGTH_SHORT).show()
             if (driving){
                 //finish()
                 binding.btnStartDriving.text="Start Driving"
@@ -96,7 +96,8 @@ class DriverDriving : AppCompatActivity() {
                                     for (location in locationResult.locations) {
                                         deviceLocation=location
                                         if(driving) {
-                                            binding.txtShowLocation.text = deviceLocation.toString()
+                                           // binding.txtShowLocation.text = deviceLocation.toString()
+                                            binding.txtShowLocation.text = "Location updating To server......"
                                             val sendLoc = DrivingData()
                                             sendLoc.latitude = deviceLocation.latitude.toString()
                                             sendLoc.longitude = deviceLocation.longitude.toString()

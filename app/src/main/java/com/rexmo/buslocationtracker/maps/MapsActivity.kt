@@ -30,10 +30,12 @@ import kotlinx.coroutines.delay
 internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private lateinit var userMap:GoogleMap
 
-     var latitude:Double=0.0
-     var longitude:Double=0.0
+     var latitude:Double=19.048622
+     var longitude:Double=83.834350
      var ltLg=LatLng(latitude,longitude)
+    //var busNumber=intent.getStringExtra("busNumber").toString()
 
 
     //private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -53,6 +55,7 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         //Handler(Looper.getMainLooper()).postDelayed({},3000)
 
         changeLocation()
+
     }
 
     /**
@@ -73,7 +76,7 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(MarkerOptions()
             .position(ltLg)
             .title("Marker in Gunupur"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ltLg,15f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ltLg,17f))
 
     }
 
@@ -90,7 +93,7 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 longitude=it.getString("longitude").toString().toDouble()
                 ltLg=LatLng(latitude,longitude)
 
-                Toast.makeText(this,"$latitude$longitude$ltLg",Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this,"$latitude$longitude$ltLg",Toast.LENGTH_SHORT).show()
 //                s =
 //                    it.getString("busNO") + it.getString("longitude") + it.getString("latitude") + "\n"
                 //binding.txtShowLocation.text = s
@@ -108,7 +111,7 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun changeLocation(){
 
-            //Handler(Looper.getMainLooper()).postDelayed({},2000)
+            //Handler(Looper.getMainLooper( )).postDelayed({},2000)
         val handler=Handler(Looper.getMainLooper())
         val runnable=object: Runnable {
 

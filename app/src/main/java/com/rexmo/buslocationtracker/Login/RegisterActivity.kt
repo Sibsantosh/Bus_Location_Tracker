@@ -44,10 +44,11 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Enter details", Toast.LENGTH_SHORT).show()
             }
             else {
-                email = binding.etEmail.text.toString().trim(){it <=' '}
-                password = binding.etPassword.text.toString().trim(){it <=' '}
-                 driverNo= binding.etDriverNumber.text.toString().trim(){it <=' '}
-                driverName = binding.etName.text.toString().trim(){it <=' '}
+                email = binding.etEmail.text.toString().trim {it <=' '}
+                password = binding.etPassword.text.toString().trim {it <=' '}
+                 driverNo= binding.etDriverNumber.text.toString().trim {it <=' '}
+                 busNo= binding.etDriverNumber.text.toString().trim {it <=' '}
+                driverName = binding.etName.text.toString().trim {it <=' '}
                 confirmPassword = binding.etPasswordConfirm.text.toString().trim()
                 if (password != confirmPassword) {
                     Toast.makeText(this, "Passwords don't match", Toast.LENGTH_SHORT).show()
@@ -62,6 +63,7 @@ class RegisterActivity : AppCompatActivity() {
                                     user.driverID=firebaseUser.uid
                                     user.email=email
                                     user.driverNo=driverNo
+                                    user.busNumber=busNo
                                     user.driverName=driverName
                                     FirestoreClass().registerUser(this,user)
                                     FirebaseAuth.getInstance().signOut()

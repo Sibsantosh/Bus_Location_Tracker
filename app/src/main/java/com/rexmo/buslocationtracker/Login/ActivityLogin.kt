@@ -37,8 +37,8 @@ class ActivityLogin : AppCompatActivity() {
             }
             else{
                 showProgressBar()
-                email=binding.etEmail.text.toString().trim(){it <=' '}
-                password=binding.etPassword.text.toString().trim(){it <=' '}
+                email=binding.etEmail.text.toString().trim {it <=' '}
+                password=binding.etPassword.text.toString().trim {it <=' '}
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
                     .addOnCompleteListener(
                         OnCompleteListener <AuthResult>{

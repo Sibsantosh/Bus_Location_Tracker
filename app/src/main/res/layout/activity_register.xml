@@ -55,7 +55,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter email"
                     android:layout_marginTop="50dp"
-                    android:text="a@gmail.com"
                     android:textSize="18sp"
                     android:layout_marginLeft="30dp"
                     android:textColor="@color/black"
@@ -64,7 +63,6 @@
             </LinearLayout>
             <EditText
                 android:id="@+id/et_driver_number"
-                android:text="12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Driver No"
@@ -76,7 +74,6 @@
 
             <EditText
                 android:id="@+id/et_busNO"
-                android:text="5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter bus no"
@@ -91,7 +88,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Name"
-                android:text="sib"
                 android:layout_marginTop="50dp"
                 android:textSize="18sp"
                 android:layout_marginLeft="30dp"
@@ -107,7 +103,6 @@
                 android:inputType="textPassword"
                 android:hint="Enter password"
                 android:textSize="18sp"
-                android:text="123456"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"/>
             <EditText
@@ -116,7 +111,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Confirm password"
-                android:text="123456"
                 android:inputType="textPassword"
                 android:textSize="18sp"
                 android:layout_marginLeft="30dp"
