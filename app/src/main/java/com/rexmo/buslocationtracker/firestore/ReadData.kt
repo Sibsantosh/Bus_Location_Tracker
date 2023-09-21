@@ -9,6 +9,7 @@ class ReadData {
     lateinit var location: Location
     lateinit var s:String
     fun readFirestoreData(activity:Activity){
+
         val dataBase= FirebaseFirestore.getInstance().collection("Bus").document("23")
         dataBase.get().addOnSuccessListener {
             if (it.exists()){
